@@ -8,6 +8,7 @@ var exphbs = require("express-handlebars");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
+var db = require("./models");
 
 // Morgan
 app.use(logger("dev"));
@@ -54,7 +55,7 @@ app.get("/scrape", function(req, res){
 
         });
 
-        res.json(results);
+        res.send(results);
 
       });
 });
