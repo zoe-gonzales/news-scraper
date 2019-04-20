@@ -27,6 +27,10 @@ app.set("view engine", "handlebars");
 mongoose.connect('mongodb://localhost/scraper', {useNewUrlParser: true});
 
 app.get("/", function(req, res){
+    res.render("index");
+});
+
+app.get("/scrape", function(req, res){
     axios.get("https://www.wired.com/").then(function(response) {
 
         var $ = cheerio.load(response.data);

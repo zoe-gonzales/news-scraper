@@ -1,0 +1,12 @@
+body {
+    background-image: url(../img/background.png);
+}
+
+.jumbotron {
+    background-color: rgba(0,0,0,0);
+    margin-top: 5rem;
+}
+
+.scrape {
+    margin-top: 3rem;
+}
