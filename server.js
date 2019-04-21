@@ -27,6 +27,15 @@ app.set("view engine", "handlebars");
 // Connecting to db with Mongoose
 mongoose.connect('mongodb://localhost/scraperdb', {useNewUrlParser: true});
 
+db.Article.deleteMany({})
+  .then(function(result){
+    console.log(result);
+  })
+  .catch(function(error){
+    console.log(error);
+  });
+
+
 app.get("/", function(req, res){
     res.render("index");
 });
@@ -68,6 +77,7 @@ app.get("/scrape", function(req, res){
         });
     });
 });
+
 
 app.listen(PORT, function(error){
     if (error) throw error;
