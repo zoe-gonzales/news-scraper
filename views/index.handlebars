@@ -27,9 +27,22 @@
                 {{/if}} | 
                 <a href="https://www.wired.com{{this.source}}" target="_blank">Read on Wired.com</a>
             </p>
+            <p>
+                {{#if this.comments}}
+                <span class="comment-heading">- Comments -</span> <br>
+                {{#each this.comments}}
+                <span class="comment-user">User:</span> {{this.username}} <br>
+                <span class="comment-text">Comment:</span> {{this.comment}}
+                <button class="btn btn-outline-dark delete-btn" data-id="{{this._id}}">X</button> <br>
+                {{/each}}
+                {{/if}}
+            </p>
             <hr>
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div class="comment-{{this._id}}"></div>
+            
+        </div>
     </div>
     {{/each}}
 </div>

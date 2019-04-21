@@ -27,3 +27,21 @@ body {
     margin-bottom: .7rem;
     float: right;
 }
+
+.comment-form {
+    margin: .5rem 0;
+}
+
+.comment-heading,
+.comment-user,
+.comment-text {
+    font-weight: bold;
+}
+
+.comment-heading {
+    font-size: 1.25rem;
+}
+
+.delete-btn {
+    font-size: .7rem;
+}
