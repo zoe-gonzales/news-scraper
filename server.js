@@ -78,24 +78,16 @@ app.get("/scrape", function(req, res){
             });
         });
 
-      db.Article.find({})
-        .then(function(data){
-          var articles = data.slice(0, 50);
-
-          function removeDups(value, index, unique) { 
-            return unique.indexOf(value) === index;
-          }
-        
-          var uniqueVals = articles.filter(removeDups);
-          
-          res.render("index", {articles: uniqueVals});
-          return;
-        })
-        .catch(function(error){
-          console.log(error);
-          res.status(500);
-          return;
-        });
+        db.Article.find({})
+          .then(function(data){
+            var articles = data.slice(0, 50);
+            res.render("index", {articles: articles});
+          })
+          .catch(function(error){
+            console.log(error);
+            res.status(500);
+            return;
+          });
     });
 });
 
