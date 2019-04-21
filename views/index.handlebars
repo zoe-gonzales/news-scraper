@@ -1,27 +1,35 @@
 <div class="jumbotron">
     <h1 class="display-4 text-center">News Scraper</h1>
     <div class="text-center scrape">
-        <a href="/scrape" class="btn btn-outline-dark">Get the news</a>
+        <a href="/scrape" class="btn btn-outline-dark get-news">Get the news</a>
     </div>
 </div>
-<div id="articles">
+<div class="container">
     {{#each articles}}
-
-    <p>{{this.title}}</p>
-    <a href="https://www.wired.com{{this.source}}">Read on Wired.com</a>
-    <p>By: {{this.byline}}</p>
-
-    {{#if this.section}}
-    <p>Section {{this.section}}</p>
-    {{else}}
-    <p>Section unavailable.</p>
-    {{/if}}
-    
-    {{#if this.thumbnail}}
-    <img src="{{this.thumbnail}}" alt="article" class="thumbnail">
-    {{else}}
-    <p>Image unavailable.</p>
-    {{/if}}
-
+    <div class="row">
+        <div class="col-md-1">
+            {{#if this.thumbnail}}
+            <img src="{{this.thumbnail}}" alt="article" class="thumbnail">
+            {{else}}
+            <img src="https://blog.silentsorority.com/wp-content/uploads/2014/10/wired.jpg" alt="article" class="thumbnail">
+            {{/if}}
+        </div>
+        <div class="col-md-8 text">
+            <p>{{this.title}} | 
+                <a href="https://www.wired.com{{this.source}}" target="_blank">Read on Wired.com</a>
+            </p>
+            
+            <p>By: {{this.byline}} | 
+                {{#if this.section}}
+                Section: {{this.section}}
+                {{else}}
+                Section unavailable.
+                {{/if}}
+                <button class="btn btn-outline-dark comment-btn" data-id="{{this._id}}">Comment</button>
+            </p>
+            <hr>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
     {{/each}}
 </div>

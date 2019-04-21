@@ -12,5 +12,17 @@ body {
 }
 
 .thumbnail {
-    width: 30%;
+    width: 100%;
+    margin-bottom: .7rem;
+    float: left;
+}
+
+.text {
+    margin-bottom: .7rem;
+    float: left;
+}
+
+.comment-btn {
+    font-size: .7rem;
+    float: right;
 }
