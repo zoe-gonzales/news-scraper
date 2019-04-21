@@ -25,16 +25,9 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Connecting to db with Mongoose
-mongoose.connect('mongodb://localhost/scraperdb', {useNewUrlParser: true});
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraperdb";
 
-db.Article.deleteMany({})
-  .then(function(result){
-    console.log(result);
-  })
-  .catch(function(error){
-    console.log(error);
-  });
-
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 
 app.get("/", function(req, res){
     res.render("index");
@@ -51,35 +44,65 @@ app.get("/scrape", function(req, res){
           var byline = $(element).find("span.byline-component__content").text();
           var section = $(element).find("span.post-listing-list-item__byline").text();
           var thumbnail = $(element).find("img").attr("src");
-      
-          db.Article.create({
-            title: title,
-            source: source,
-            byline: byline,
-            section: section,
-            thumbnail: thumbnail
-          })
-          .then(function(articleData){
-            console.log(articleData);
-          })
-          .catch(function(error){
-            throw error;
-          });
+
+          // take scraped data and compare to data in db to determine if it already exists.
+          // Searching db for document that matches the title of the currently scraped one
+          db.Article.findOne({"title":title})
+            .then(function(data){
+              // if there's not duplicate document
+              if (!data){
+                // the article is added to the db
+                db.Article.create({
+                  title: title,
+                  source: source,
+                  byline: byline,
+                  section: section,
+                  thumbnail: thumbnail
+                })
+                .then(function(articleData){
+                  console.log(articleData);
+                  res.status(200);
+                  return;
+                })
+                .catch(function(error){
+                  console.log(error);
+                  res.status(500);
+                  return;
+                });
+              }
+            })
+            .catch(function(error){
+              console.log(error);
+              res.status(500);
+              return;
+            });
         });
 
       db.Article.find({})
         .then(function(data){
           var articles = data.slice(0, 50);
-          res.render("index", {articles: articles});
+
+          function removeDups(value, index, unique) { 
+            return unique.indexOf(value) === index;
+          }
+        
+          var uniqueVals = articles.filter(removeDups);
+          
+          res.render("index", {articles: uniqueVals});
+          return;
         })
         .catch(function(error){
-          throw error;
+          console.log(error);
+          res.status(500);
+          return;
         });
     });
 });
 
-
 app.listen(PORT, function(error){
-    if (error) throw error;
-    console.log("Listening on port " + PORT);
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Listening on port " + PORT);
+    } 
 });
