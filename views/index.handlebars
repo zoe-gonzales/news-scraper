@@ -4,3 +4,24 @@
         <a href="/scrape" class="btn btn-outline-dark">Get the news</a>
     </div>
 </div>
+<div id="articles">
+    {{#each articles}}
+
+    <p>{{this.title}}</p>
+    <a href="https://www.wired.com{{this.source}}">Read on Wired.com</a>
+    <p>By: {{this.byline}}</p>
+
+    {{#if this.section}}
+    <p>Section {{this.section}}</p>
+    {{else}}
+    <p>Section unavailable.</p>
+    {{/if}}
+    
+    {{#if this.thumbnail}}
+    <img src="{{this.thumbnail}}" alt="article" class="thumbnail">
+    {{else}}
+    <p>Image unavailable.</p>
+    {{/if}}
+
+    {{/each}}
+</div>

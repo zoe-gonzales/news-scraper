@@ -25,7 +25,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Connecting to db with Mongoose
-mongoose.connect('mongodb://localhost/scraper', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/scraperdb', {useNewUrlParser: true});
 
 app.get("/", function(req, res){
     res.render("index");
@@ -36,28 +36,37 @@ app.get("/scrape", function(req, res){
 
         var $ = cheerio.load(response.data);
 
-        var results = [];
-
         $("li.post-listing-list-item__post").each(function(i, element) {
-          var title = $(element).children().text();
-          var src = $(element).find("a").attr("href");
+          var title = $(element).find("h5").text();
+          var source = $(element).find("a").attr("href");
           var byline = $(element).find("span.byline-component__content").text();
           var section = $(element).find("span.post-listing-list-item__byline").text();
           var thumbnail = $(element).find("img").attr("src");
       
-          results.push({
+          db.Article.create({
             title: title,
-            src: src,
+            source: source,
             byline: byline,
             section: section,
             thumbnail: thumbnail
+          })
+          .then(function(articleData){
+            console.log(articleData);
+          })
+          .catch(function(error){
+            throw error;
           });
-
         });
 
-        res.send(results);
-
-      });
+      db.Article.find({})
+        .then(function(data){
+          var articles = data.slice(0, 50);
+          res.render("index", {articles: articles});
+        })
+        .catch(function(error){
+          throw error;
+        });
+    });
 });
 
 app.listen(PORT, function(error){

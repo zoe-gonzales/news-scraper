@@ -10,3 +10,7 @@ body {
 .scrape {
     margin-top: 3rem;
 }
+
+.thumbnail {
+    width: 30%;
+}
