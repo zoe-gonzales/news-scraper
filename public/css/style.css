@@ -17,6 +17,10 @@ body {
     float: left;
 }
 
+.link {
+    color: #3A42C7;
+}
+
 .text {
     margin-bottom: .7rem;
     float: left;
@@ -32,16 +36,29 @@ body {
     margin: .5rem 0;
 }
 
-.comment-heading,
-.comment-user,
 .comment-text {
-    font-weight: bold;
+    font-style: italic;
 }
 
-.comment-heading {
-    font-size: 1.25rem;
+.comment-user {
+    color: #3A42C7;
 }
 
 .delete-btn {
-    font-size: .7rem;
+    font-size: 1rem;
+    background: none;
+    border: none;
+}
+
+.delete-btn:hover {
+    color: #3A42C7;
+}
+
+.card-body {
+    border-color: grey;
+    border-width: 1px;
+}
+
+.card {
+    margin-bottom: .4rem;
 }

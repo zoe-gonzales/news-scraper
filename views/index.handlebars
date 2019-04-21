@@ -25,15 +25,23 @@
                 {{else}}
                 Section: N/A
                 {{/if}} | 
-                <a href="https://www.wired.com{{this.source}}" target="_blank">Read on Wired.com</a>
+                <a href="https://www.wired.com{{this.source}}" target="_blank" class="link">Read on Wired.com</a>
             </p>
             <p>
                 {{#if this.comments}}
-                <span class="comment-heading">- Comments -</span> <br>
+                <h5 class="lead card-title text-center">Comments</h5> <br>
                 {{#each this.comments}}
-                <span class="comment-user">User:</span> {{this.username}} <br>
-                <span class="comment-text">Comment:</span> {{this.comment}}
-                <button class="btn btn-outline-dark delete-btn" data-id="{{this._id}}">X</button> <br>
+                <div class="card">
+                    <div class="card-body rounded">
+                        <div class="card-text">
+                            <span class="comment-user">{{this.username}}</span><br>
+                            <span class="comment-text">{{this.comment}}</span>
+                            <button class="delete-btn" data-id="{{this._id}}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 {{/each}}
                 {{/if}}
             </p>
