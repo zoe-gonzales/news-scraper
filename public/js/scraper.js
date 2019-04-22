@@ -46,10 +46,24 @@ $(document).ready(function(){
             $.ajax("/comment/" + id, {
                 method: "POST",
                 data: newComment
-            }).then(function(error, result){
-                if (error) console.log(error);
-                console.log(result);
-                window.location.reload(true);
+            }).then(function(){
+                location.reload();
+            });
+        });
+    }
+
+    $(document).on("click", ".delete-btn", function() {
+        var commentId = $(this).data("id");
+        $("#confirmDelete").modal("show");
+        deleteComment(commentId);
+    });
+
+    function deleteComment(id){
+        $("#delete-comment").on("click", function(){
+            $.ajax("/comment/" + id, {
+                method: "DELETE"
+            }).then(function(){
+                location.reload();
             });
         });
     }

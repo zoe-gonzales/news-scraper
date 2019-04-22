@@ -29,10 +29,12 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraperdb";
 
 mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 
+// Rendering homepage
 app.get("/", function(req, res){
     res.render("index");
 });
 
+// Scraping and sending data
 app.get("/scrape", function(req, res){
   axios.get("https://www.wired.com/").then(function(response) {
 
@@ -93,6 +95,7 @@ app.get("/scrape", function(req, res){
   });
 });
 
+// Adding comments
 app.post("/comment/:id", function(req, res){
   db.Comment.create(req.body)
   .then(function(commentData){
@@ -109,6 +112,19 @@ app.post("/comment/:id", function(req, res){
     res.sendStatus(500);
     return;
   });
+});
+
+// Deleting comments
+app.delete("/comment/:id", function(req, res){
+  db.Comment.remove({_id:req.params.id})
+    .then(function(result){
+      res.send(result);
+    })
+    .catch(function(error){
+      console.log(error);
+      res.sendStatus(500);
+      return;
+    });
 });
 
 app.listen(PORT, function(error){
