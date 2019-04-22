@@ -84,29 +84,25 @@ app.get("/scrape", function(req, res){
           var articles = data.slice(0, 50);
           console.log(articles[0]);
           res.render("index", {articles: articles});
-          
         })
         .catch(function(error){
           console.log(error);
-          res.status(500);
+          res.sendStatus(500);
           return;
         });
   });
 });
 
 app.post("/comment/:id", function(req, res){
-  console.log(req.body);
   db.Comment.create(req.body)
   .then(function(commentData){
     return db.Article
       .findOneAndUpdate({_id:req.params.id}, 
-        {$push: {comments:commentData._id}}, 
-        {new:true})
-      .catch(function(error){
-        if (error){
-          console.log(error);
-        }
-      });
+      {$push: {comments:commentData._id}}, 
+      {new:true});  
+  })
+  .then(function(articleData){
+    res.json(articleData);
   })
   .catch(function(error){
     console.log(error);

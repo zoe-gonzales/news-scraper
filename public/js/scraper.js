@@ -1,9 +1,5 @@
 $(document).ready(function(){
 
-    function openComment(){
-
-    }
-
     $(document).on("click", ".comment-btn", function() {
         var articleId = $(this).data("id");
         var commentBox = $("<form>")
@@ -50,12 +46,10 @@ $(document).ready(function(){
             $.ajax("/comment/" + id, {
                 method: "POST",
                 data: newComment
-            }).then(function(error){
-                if (error){
-                    console.log(error);
-                } else {
-                    location.reload();
-                }
+            }).then(function(error, result){
+                if (error) console.log(error);
+                console.log(result);
+                window.location.reload(true);
             });
         });
     }
