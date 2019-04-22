@@ -127,6 +127,7 @@ app.delete("/comment/:id", function(req, res){
     });
 });
 
+// App listening on given port
 app.listen(PORT, function(error){
     if (error) {
       console.log(error);

@@ -1,5 +1,9 @@
+/* General styling */
+
 body {
     background-image: url(../img/background.png);
+    font-family: 'Open Sans', sans-serif;
+    background-color: black;
 }
 
 .jumbotron {
@@ -10,6 +14,13 @@ body {
 .scrape {
     margin-top: 3rem;
 }
+
+.title {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 5rem;
+}
+
+/* Styling for Articles */
 
 .thumbnail {
     width: 100%;
@@ -25,6 +36,8 @@ body {
     margin-bottom: .7rem;
     float: left;
 }
+
+/* Styling for comments */
 
 .comment-btn {
     font-size: .7rem;

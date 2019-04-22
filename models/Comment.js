@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
+// Comment schema enforces required fields
 var CommentSchema = new Schema({
     username: {
         type: String,
