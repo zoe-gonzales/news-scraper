@@ -24,14 +24,15 @@
 <div class="container">
     {{#each articles}}
     <div class="row">
-        <div class="col-md-1">
+        <div class="col-md-2">
             {{#if this.thumbnail}}
             <img src="{{this.thumbnail}}" alt="article" class="thumbnail">
             {{else}}
             <img src="img/wired.jpg" alt="article" class="thumbnail">
             {{/if}}
+            
         </div>
-        <div class="col-md-8 text">
+        <div class="col-md-7 text">
             <p>{{this.title}}
                 <button class="btn btn-outline-dark comment-btn" data-id="{{this._id}}">Comment</button>
             </p>
@@ -61,11 +62,11 @@
                 {{/each}}
                 {{/if}}
             </p>
-            <hr>
         </div>
         <div class="col-md-3">
             <div class="comment-{{this._id}}"></div>
         </div>
     </div>
+    <hr>
     {{/each}}
 </div>
