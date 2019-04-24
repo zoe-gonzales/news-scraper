@@ -1,9 +1,9 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+let Schema = mongoose.Schema;
 
 // Comment schema enforces required fields
-var CommentSchema = new Schema({
+let CommentSchema = new Schema({
     username: {
         type: String,
         required: "Name is required."
@@ -14,6 +14,6 @@ var CommentSchema = new Schema({
     }
 });
 
-var Comment = mongoose.model("Comment", CommentSchema);
+let Comment = mongoose.model("Comment", CommentSchema);
 
 module.exports = Comment;

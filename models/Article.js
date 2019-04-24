@@ -1,10 +1,10 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+let Schema = mongoose.Schema;
 
 // Article Schema allows for null values because => 
 // not all values are provided for every article on Wired.com
-var ArticleSchema = new Schema({
+let ArticleSchema = new Schema({
     title: String,
     source: String,
     byline: String,
@@ -17,6 +17,6 @@ var ArticleSchema = new Schema({
     }]
 });
 
-var Article = mongoose.model("Article", ArticleSchema);
+let Article = mongoose.model("Article", ArticleSchema);
 
 module.exports = Article;
