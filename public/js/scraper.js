@@ -87,7 +87,7 @@ $(document).ready(function(){
             change.action = $(this).data("action");
             
             $.ajax("/favorites/" + favoriteId, {
-                method: "POST",
+                method: "PUT",
                 data: change
             }).then(function(){
                 location.reload();
