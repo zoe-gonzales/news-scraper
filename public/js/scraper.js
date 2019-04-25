@@ -78,4 +78,24 @@ $(document).ready(function(){
             });
         });
     }
+
+    // functionality toggles between starred and unstarred
+    function toggleFav(element){
+        $(document).on("click", element, function() {
+            let favoriteId = $(this).data("id");
+            let change = {};
+            change.action = $(this).data("action");
+            
+            $.ajax("/favorites/" + favoriteId, {
+                method: "POST",
+                data: change
+            }).then(function(){
+                location.reload();
+            });
+        });
+    }
+
+    toggleFav(".fav-btn");
+    toggleFav(".remove-fav");
+
 });

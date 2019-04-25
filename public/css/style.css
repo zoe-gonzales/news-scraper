@@ -39,6 +39,13 @@ body {
 
 /* Styling for comments */
 
+.remove-fav,
+.fav-btn {
+    margin-left: .5rem;
+}
+
+.remove-fav,
+.fav-btn,
 .comment-btn {
     font-size: .7rem;
     margin-bottom: .7rem;

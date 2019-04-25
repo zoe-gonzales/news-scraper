@@ -1,8 +1,7 @@
 <div class="jumbotron">
     <h1 class="display-4 text-center title">Wired.com News Scraper</h1>
     <div class="text-center scrape">
-        <a href="/scrape" class="btn btn-outline-dark get-news">Get the news</a>
-        <a href="/favorites" class="btn btn-outline-dark">Favorites</a>
+        <a href="/articles" class="btn btn-outline-dark get-news">Back to articles</a>
     </div>
 </div>
 
@@ -23,7 +22,7 @@
 {{!-- End of delete Modal --}}
 
 <div class="container">
-    {{#each articles}}
+    {{#each favs}}
     <div class="row">
         <div class="col-md-2">
             {{#if this.thumbnail}}
@@ -31,12 +30,11 @@
             {{else}}
             <img src="img/wired.jpg" alt="article" class="thumbnail">
             {{/if}}
-            
         </div>
         <div class="col-md-7 text">
             <p>{{this.title}}
-                <button class="btn btn-outline-dark fav-btn" data-id="{{this._id}}" data-action="fav">
-                    <i class="fas fa-star"></i>
+                <button class="btn btn-outline-dark remove-fav" data-id="{{this._id}}" data-action="no-fav">
+                    <i class="far fa-trash-alt"></i>
                 </button>
                 <button class="btn btn-outline-dark comment-btn" data-id="{{this._id}}">Comment</button>
             </p>
@@ -71,6 +69,5 @@
             <div class="comment-{{this._id}}"></div>
         </div>
     </div>
-    <hr>
     {{/each}}
 </div>

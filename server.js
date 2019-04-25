@@ -42,11 +42,11 @@ app.get("/scrape", (req, res) => {
       const $ = cheerio.load(response.data);
 
       $("ul").each((i, element) => {
-        let title = $(this).find("h2").text().trim();
-        let source = $(this).find("a").attr("href");
-        let byline = $(this).find("a.byline-component__link").text();
-        let section = $(this).find("div.brow-component").text();
-        let thumbnail = $(this).find("img").attr("src");
+        let title = $(element).find("h2").text().trim();
+        let source = $(element).find("a").attr("href");
+        let byline = $(element).find("a.byline-component__link").text();
+        let section = $(element).find("div.brow-component").text();
+        let thumbnail = $(element).find("img").attr("src");
 
         if (title && source && byline && section && thumbnail){
           // take scraped data and compare to data in db to determine if it already exists.
@@ -61,7 +61,8 @@ app.get("/scrape", (req, res) => {
                   source: source,
                   byline: byline,
                   section: section,
-                  thumbnail: thumbnail
+                  thumbnail: thumbnail,
+                  favorite: false
                 })
                 .then(articleData => {
                   console.log(articleData);
@@ -118,6 +119,33 @@ app.post("/comment/:id", function(req, res){
 // Deleting comments
 app.delete("/comment/:id", function(req, res){
   db.Comment.remove({_id:req.params.id})
+    .then(result => res.send(result))
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+      return;
+    });
+});
+
+// Render all favorite articles on fav.handlebars
+app.get("/favorites", function(req, res){
+  db.Article.find({favorite: true})
+    .populate("comments")
+    .then(favs => res.render("fav", {favs: favs}))
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+      return;
+    });
+});
+
+// Toggle favorites - star and unstar articles
+app.put("/favorites/:id", function(req,res){
+  var favorite = req.body.action === "fav" ? true : false;
+
+  db.Article.findOneAndUpdate(
+    {_id:req.params.id}, 
+    {$set: {favorite: favorite}})
     .then(result => res.send(result))
     .catch(error => {
       console.log(error);

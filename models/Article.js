@@ -10,6 +10,7 @@ let ArticleSchema = new Schema({
     byline: String,
     section: String,
     thumbnail: String,
+    favorite: Boolean,
     // Comments for each article are stored in an array
     comments: [{
         type: Schema.Types.ObjectId,
