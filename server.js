@@ -142,7 +142,6 @@ app.get("/favorites", function(req, res){
 // Toggle favorites - star and unstar articles
 app.put("/favorites/:id", function(req,res){
   var favorite = (req.body.action === "fav") ? true : false;
-  console.log(favorite);
 
   db.Article.findOneAndUpdate(
     {_id:req.params.id}, 
