@@ -70,6 +70,11 @@ $(document).ready(function(){
 
     // Sends id of item to be deleted to server and refreshes page
     function deleteComment(id){
+        // emptying div value if 'close' button is clicked to prevent multiple deletions at once
+        $("#ignore").on("click", function(){
+            id = '';
+        });
+            
         $("#delete-comment").on("click", function(){
             $.ajax("/comment/" + id, {
                 method: "DELETE"

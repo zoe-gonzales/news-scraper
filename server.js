@@ -118,7 +118,7 @@ app.post("/comment/:id", function(req, res){
 
 // Deleting comments
 app.delete("/comment/:id", function(req, res){
-  db.Comment.remove({_id:req.params.id})
+  db.Comment.findOneAndDelete({_id:req.params.id})
     .then(result => res.send(result))
     .catch(error => {
       console.log(error);
@@ -141,7 +141,7 @@ app.get("/favorites", function(req, res){
 
 // Toggle favorites - star and unstar articles
 app.put("/favorites/:id", function(req,res){
-  var favorite = (req.body.action === "fav") ? true : false;
+  let favorite = (req.body.action === "fav") ? true : false;
 
   db.Article.findOneAndUpdate(
     {_id:req.params.id}, 
