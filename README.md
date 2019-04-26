@@ -19,12 +19,12 @@ Add comments. Validation is in place to prevent blank fields.
 
 ![Comment Validation](./images/validation.png)
 
-<img src="./images/add-comment.png" style="width: 200px" alt="Add Comment">
+<img src="./images/add-comment.png" style="width: 70px" alt="Add Comment">
 
 ![Comment Added](./images/commented.png)
 
 Delete comments upon confirmation.
 
-<img src="./images/confirm-delete.png" style="width: 500px" alt="Add Comment">
+<img src="./images/confirm-delete.png" style="width: 300px" alt="Add Comment">
 
 Additionally, articles can be added to and removed from the favorites section.
