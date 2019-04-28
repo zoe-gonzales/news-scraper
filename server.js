@@ -30,9 +30,7 @@ let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraperdb";
 mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 
 // Rendering homepage
-app.get("/", function(req, res){
-    res.render("index");
-});
+app.get("/", (req, res) => res.render("index"));
 
 // Scraping and sending data
 app.get("/scrape", (req, res) => {
@@ -88,7 +86,7 @@ app.get("/scrape", (req, res) => {
     });
 });
 
-app.get("/articles", function(req, res){
+app.get("/articles", (req, res) => {
   db.Article.find({})
   .populate("comments")
   .then(data => res.render("index", {articles: data}))
@@ -100,7 +98,7 @@ app.get("/articles", function(req, res){
 })
 
 // Adding comments
-app.post("/comment/:id", function(req, res){
+app.post("/comment/:id", (req, res) => {
   db.Comment.create(req.body)
   .then(commentData => {
     return db.Article
@@ -117,7 +115,7 @@ app.post("/comment/:id", function(req, res){
 });
 
 // Deleting comments
-app.delete("/comment/:id", function(req, res){
+app.delete("/comment/:id", (req, res) => {
   db.Comment.findOneAndDelete({_id:req.params.id})
     .then(result => res.send(result))
     .catch(error => {
@@ -128,7 +126,7 @@ app.delete("/comment/:id", function(req, res){
 });
 
 // Render all favorite articles on fav.handlebars
-app.get("/favorites", function(req, res){
+app.get("/favorites", (req, res) => {
   db.Article.find({favorite: true})
     .populate("comments")
     .then(favs => res.render("fav", {favs: favs}))
@@ -140,7 +138,7 @@ app.get("/favorites", function(req, res){
 });
 
 // Toggle favorites - star and unstar articles
-app.put("/favorites/:id", function(req,res){
+app.put("/favorites/:id", (req,res) => {
   let favorite = (req.body.action === "fav") ? true : false;
 
   db.Article.findOneAndUpdate(

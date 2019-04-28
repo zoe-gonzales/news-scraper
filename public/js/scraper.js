@@ -102,5 +102,4 @@ $(document).ready(function(){
 
     toggleFav(".fav-btn");
     toggleFav(".remove-fav");
-
 });
